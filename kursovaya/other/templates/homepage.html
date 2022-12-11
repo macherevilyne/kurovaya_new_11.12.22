@@ -1,0 +1,16 @@
+<title>Главная страница</title>
+{% extends "base.html" %}
+{% block page_content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'other/css/style_homepage1.css' %}">
+<img src ="{% static 'other/images/1.png' %}" class="center-img" width = "650" height = "180">
+<h3 align="center"><a style="font-style:italic">Приветствуем, Вас<br>
+
+Вы находитесь на главной странице сайта для перевозчиков ООО "Илмакс"<br>
+Главная цель сайта - оптимизация логистических процессов<br>
+
+Зарегистрируйтесь, тогда Вы будете иметь возможность посмотреть актуальные грузы и разместить свое объевление о свободном транспорте</a></h3>
+
+<br><br><br><br>
+{% endblock %}
+

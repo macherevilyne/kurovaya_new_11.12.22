@@ -1,0 +1,89 @@
+<title>Электронная очередь</title>
+{% extends "base.html" %}
+{% block page_content %}
+{% load static %}
+
+<h3 align="center">Вы находитесь на странице сайта где можете предложить свой актуальный транспорт.</h3>
+<h3 align="center">Заполните все поля ниже если хотите оставить заявку по своему транспорту.</h3>
+
+<br>
+<div class="row">
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+
+            <div class="row">
+                <div class="col-md-5">
+                    <img src = "{% static 'main1/images/carrier.jpg' %}" width = "700" height = "218">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <h5 class="card-title">Заполните поля ниже</h5>
+
+                        <p class="card-text">  Маршрут: {{ form.itinerary }}  Дата планируемой машины: {{ form.date }} </p>
+
+                        <p class="card-text">  Название вашей фирмы: {{ form.firm }} Контактное лицо: {{ form.customers_contact_person }} </p>
+
+                        <p class="card-text">  Параметры и особенности вашей машины: {{ form.auto }}  Примечание: {{ form.note }}</p>
+
+                        <button type="submit">Отправить</button>
+                    </div>
+                </div>
+            </div>
+
+
+</form>
+</div>
+
+
+<div class="row">
+    {% for i in carrier_.object_list %}
+    <div class="col-md-4">
+        <div class="card mb-2">
+
+            <div class="card-body">
+
+                <h5 class="card-title"> Маршрут: {{ i.itinerary }} </h5>
+                <p class="card-text"> Дата планируемой машины: {{ i.date }}</p>
+                <p class="card-text"> Название фирмы: {{ i.firm }} </p>
+                <p class="card-text"> Контактное лицо: {{ i.customers_contact_person }}</p>
+                <p class="card-text"> Параметры вашей машины: {{ i.auto }}
+                <p class="card-text"> Примечание: {{ i.note }}</p>
+                <a href="{% url 'delete-сarrier' i.id %}" class="btn btn-danger ">Удалить</a>
+
+            </div>
+        </div>
+    </div>
+
+    {%endfor%}
+
+
+{% if is_paginated %}
+
+<nav aria-label="...">
+    <ul class="pagination justify-content-center">
+        <li class="page-item {% if not prev_url %} disabled {% endif %}">
+            <a class="page-link" href="{{prev_url}}" tabindex="-1" aria-disabled="true">Назад</a>
+        </li>
+
+
+        {% for n in carrier_.paginator.page_range %}
+        {% if carrier_.number == n %}
+        <li class="page-item active">
+            <a class="page-link" href="?page={{n}}">{{n}} <span class='sr-only'>(current)</span></a>
+        </li>
+        {% elif n > carrier_.number|add:-3 and n < carrier_.number|add:3 %}
+
+        <li class="page-item">
+            <a class="page-link" href="?page={{n }}">{{ n }}</a></li>
+        {% endif %}
+        {% endfor %}
+        <li class="page-item {% if not next_url %} disabled {% endif %}">
+            <a class="page-link" href="{{next_url}}" tabindex="-1" aria-disabled="true">Дальше</a>
+        </li>
+
+    </ul>
+</nav>
+{% endif %}
+
+</div>
+{% endblock %}
