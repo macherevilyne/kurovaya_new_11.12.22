@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # модель маршрут перевозки
 class Itinerary(models.Model):
@@ -81,8 +82,7 @@ class Actual(models.Model):
         return self.title
 
 
-class Itinerary1(models.Model):
-    title = models.CharField(max_length=200)  # поле название маршрута
+
 
 class Carrier(models.Model):
 

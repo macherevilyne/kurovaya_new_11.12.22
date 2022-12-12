@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% block page_content %}
 {% load static %}
-
+{% if user.is_authenticated %}
 <h3 align="center">Вы находитесь на странице сайта где можете предложить свой актуальный транспорт.</h3>
 <h3 align="center">Заполните все поля ниже если хотите оставить заявку по своему транспорту.</h3>
 
@@ -48,7 +48,10 @@
                 <p class="card-text"> Контактное лицо: {{ i.customers_contact_person }}</p>
                 <p class="card-text"> Параметры вашей машины: {{ i.auto }}
                 <p class="card-text"> Примечание: {{ i.note }}</p>
+
+
                 <a href="{% url 'delete-сarrier' i.id %}" class="btn btn-danger ">Удалить</a>
+
 
             </div>
         </div>
@@ -84,6 +87,11 @@
     </ul>
 </nav>
 {% endif %}
+{% else %}
+<h3 align="center"><a style="font-style:italic">Зарегистрируйтесь и войдите под своей учетной записью,
+    тогда Вы будете иметь возможность посмотреть актуальные грузы и разместить свое объевление о свободном транспорте</a></h3>
+{% endif %}
+
 
 </div>
 {% endblock %}

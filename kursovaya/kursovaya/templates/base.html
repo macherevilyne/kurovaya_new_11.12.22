@@ -45,6 +45,26 @@
     </ul>
 </nav>
 
+        {% if user.is_authenticated %}
+        <h4 align="right">Пользователь: {{ user.get_username }}</h4>
+        <h4 align="right"><a href="{% url 'logout'%}?next={{request.path}}">Выйти</a></h4>
+
+        {% else %}
+        <h4 align="right"><a href="{% url 'login'%}?next={{request.path}}">Войти</a></h4>
+        <h4 align="right"><a href="{% url 'register'%}?next={{request.path}}">Регистрация</a></h4>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-8">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
 {% block page_content %}
 <link rel="stylesheet" href="{% static 'kursovaya/css/style2.css' %}">
 <p></p>

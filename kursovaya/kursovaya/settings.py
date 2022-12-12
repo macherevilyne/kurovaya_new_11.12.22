@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'other.apps.OtherConfig',
     'kursovaya',
     'rest_framework',
+    'users_.apps.UsersConfig',
+    'crispy_forms',
 
 ]
 

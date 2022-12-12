@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 
-from .models import*
+from .models import *
 from django.core.paginator import Paginator
 from .forms import CarrierForm
 from django.core.exceptions import ValidationError
 
+
 def actual(request):  # функция запроса
-    cargo = Actual.objects.all().order_by('date_of_transportation')  # получение кверисет всех обьектов, полей из созданных записей
+    cargo = Actual.objects.all().order_by(
+        'date_of_transportation')  # получение кверисет всех обьектов, полей из созданных записей
     paginator = Paginator(cargo, 6)
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
@@ -31,8 +33,6 @@ def actual(request):  # функция запроса
     return render(request, 'actual.html', context)  # возвращение слова и вывод в шаблон
 
 
-
-
 def carrier(request):
     carrier_ = Carrier.objects.all().order_by('date')
     paginator = Paginator(carrier_, 6)
@@ -49,20 +49,17 @@ def carrier(request):
     else:
         next_url = ''
 
-
     if request.method == 'POST':
         form = CarrierForm(request.POST)
 
         if form.is_valid():
             carrier = form.save(commit=False)
+
             carrier.save()
             return redirect('carrier')
 
-
     else:
         form = CarrierForm()
-
-
 
     context = {'form': form,
                'carrier_': page,
@@ -72,7 +69,9 @@ def carrier(request):
                }
     return render(request, 'carrier.html', context)
 
+
 # Удаление созданных обьектов
+
 def deletecarrier(request, id):
     item = Carrier.objects.get(id=id)
     item.delete()
