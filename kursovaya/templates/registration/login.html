@@ -1,36 +1,166 @@
+<title>Вход в систему</title>
+{% load static %}
+<html>
+<head>
+    {% load crispy_forms_tags %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark" style="background-color: #FF0000;">
+    <ul class="nav navbar-nav mx-auto">
+        <li class="nav-item active">
+            <a class="navbar-brand" href='{% url "homepage" %}'>Главная</a>
+
+
+            <a class="navbar-brand" href='{% url "about_the_company" %}'>О компании</a>
+
+
+            <a class="navbar-brand" href='{% url "actual" %}'>Актуальные загрузки</a>
+
+
+            <a class="navbar-brand" href='{% url "carrier" %}'>Электронная очередь</a>
+
+
+            <a class="navbar-brand" href='{% url "contacts" %}'>Контакты</a>
+
+
+        </li>
+    </ul>
+</nav>
 {% if form.errors %}
-  <p>Ваше имя пользователя и пароль не совпали. Пожалуйста, попробуйте снова</p>
+<h4 class='card-title'>Ваше имя пользователя и пароль не совпали. Пожалуйста, попробуйте снова</h4>
 {% endif %}
+
 
 {% if next %}
-  {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-  {% else %}
-    <p>Пожалуйтса, заполните поля чтобы попасть в учетную запись</p>
-  {% endif %}
+{% if user.is_authenticated %}
+<h4 class="card-title">Пожалуйтса, заполните поля чтобы попасть в учетную запись</h4>
+{% else %}
+<p>Пожалуйтса, заполните поля чтобы попасть в учетную запись</p>
+{% endif %}
 {% endif %}
 
+
 <form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<table>
+    {% csrf_token %}
+    {{ form|crispy }}
 
-<tr>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-</tr>
+    <br>
+    <input type="submit" value="Войти"/>
 
-<tr>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-</tr>
-</table>
-
-<input type="submit" value="Войти" />
-<input type="hidden" name="next" value="{{ next }}" />
+    <input type="hidden" name="next" value="{{ next }}"/>
 </form>
 
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
 
+<p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+<br><br><br><br><br><br><br><br><br><br><br>
+<!-- Footer -->
+<footer class="text-center text-lg-start bg-dark text-white">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+        <!-- Left -->
+
+        <!-- Left -->
+
+        <!-- Right -->
+        <div>
+            <a href="https://www.instagram.com/ilmax_by/" class="me-4 link-secondary">
+                <i class="fab fa-instagram"></i>
+            </a>
+
+            <a href="https://t.me/ilmax_by" class="me-4 link-secondary">
+                <i class="fab fa-telegram"></i>
+            </a>
+
+            <a href="https://www.youtube.com/channel/UCT5jX4NssvFiyOMXg6ijkBQ?view_as=subscriber"
+               class="me-4 link-secondary">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://vk.com/ilmax_by" class="me-4 link-secondary">
+                <i class="fab fa-vk"></i>
+            </a>
+
+        </div>
+        <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+
+    <!-- Section: Links  -->
+    <section class="">
+        <div class="container text-center text-md-start mt-5">
+            <!-- Grid row -->
+            <div class="row mt-3">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <!-- Content -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        <i class="fas fa-truck me-3 text-secondary"></i>ООО "Илмакс"
+                    </h6>
+                    <img src="{% static 'other/images/homepage_logo.png' %}" width="250" height="150">
+                </div>
+                <!-- Grid column -->
+
+
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        Useful links
+                    </h6>
+                    <p>
+                        <a href='{% url "homepage" %}' class="text-reset">Главная</a>
+                    </p>
+                    <p>
+                        <a href='{% url "actual" %}' class="text-reset">Актуальные грузы</a>
+                    </p>
+                    <p>
+                        <a href='{% url "carrier" %}' class="text-reset">Электронная очередь </a>
+                    </p>
+
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                    <p><i class="fas fa-home me-3 text-secondary"></i>Минский р-н, г.п.Колодищи, ул.Хуторвская, 1/3 </p>
+                    <p>
+                        <i class="fas fa-envelope me-3 text-secondary"></i>
+                        office@ilmax.by
+                    </p>
+                    <p><i class="fas fa-phone me-3 text-secondary"></i> +375(17)336-17-00</p>
+                    <p><i class="fas fa-sitemap me-3 text-secondary"></i>ilmax.by</p>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+        </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+        Связь с разработчиком: Aliaksandr Lapunou mob.tel. +375291246580<br>
+        <a href="https://t.me/macherevilyne">Telegram</a>
+        <a href="https://www.linkedin.com/in/aliaksandr-lapunou-a078b7234/">Linkedin</a>
+        <a href="mailto:official.lapunou@mail.ru">Email</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

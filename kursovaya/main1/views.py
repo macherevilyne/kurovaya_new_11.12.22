@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.core.paginator import Paginator
 from .forms import CarrierForm
-from django.core.exceptions import ValidationError
+
+
 
 
 def actual(request):  # функция запроса
@@ -51,10 +52,10 @@ def carrier(request):
 
     if request.method == 'POST':
         form = CarrierForm(request.POST)
-
         if form.is_valid():
-            carrier = form.save(commit=False)
 
+            carrier = form.save(commit=False)
+            carrier.user = request.user
             carrier.save()
             return redirect('carrier')
 
@@ -70,9 +71,17 @@ def carrier(request):
     return render(request, 'carrier.html', context)
 
 
+
 # Удаление созданных обьектов
 
-def deletecarrier(request, id):
-    item = Carrier.objects.get(id=id)
-    item.delete()
-    return redirect('carrier')
+def deletecarrier(request, carrier_id):
+    item = Carrier.objects.get(pk=carrier_id)
+
+    if request.user == item.user:
+        Carrier.objects.filter(id=carrier_id).delete()
+        return redirect('carrier')
+    else:
+        return redirect('carrier')
+
+
+

@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+
+from django.conf import settings
 
 # модель маршрут перевозки
 class Itinerary(models.Model):
@@ -83,9 +84,12 @@ class Actual(models.Model):
 
 
 
-
 class Carrier(models.Model):
 
+    user = models.ForeignKey(
+            settings.AUTH_USER_MODEL,
+            on_delete=models.CASCADE
+        )
     itinerary = models.CharField(max_length=255)  # поле маршрут перевозки
     date = models.DateField()
     firm = models.CharField(max_length=255)

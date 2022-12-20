@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'users_.apps.UsersConfig',
     'crispy_forms',
+    'accounts.apps.AccountsConfig',
 
 ]
 
@@ -73,6 +74,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'kursovaya.wsgi.application'
+EMAIL_BACKEND  =  "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -112,7 +115,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
+LOGIN_REDIRECT_URL = 'homepage'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 #Подключение статических файлов
@@ -124,3 +127,5 @@ STATICFILES_DIRS = []
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+EMAIL_BACKEND  =  "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH  =  BASE_DIR  /  "sent_emails"
