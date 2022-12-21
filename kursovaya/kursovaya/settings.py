@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-h_!gu9181dge$_=1o!cpoec(f=v+axy#5%gxd^rt)w7(z5$14!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['macherevilyne.pythonanywhere.com']
 
 # Application definition
 
@@ -83,7 +83,11 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'macherevilyne$electronicqueue',
+
+        'HOST': 'macherevilyne.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
+
     }
 }
 
